@@ -20,12 +20,12 @@ result: .dc  1
         
         stop
         
-update: ld   r4, 0(r3)      ; Place the number at the current address      
+update: ld   r4, 0(r3)   ; Place the number at the current address      
                          ; in the current largest.
         brzr r7, r1      ; If N is 0, jump ahead to finish.
                          
-loop:   addi r3, r3, 4       ; Move the current address ahead by 4.
-        addi r1, r1, -1      ; Subtract 1 from N.
+loop:   addi r3, r3, 4   ; Move the current address ahead by 4.
+        addi r1, r1, -1  ; Subtract 1 from N.
         ld   r8, 0(r3)   ; Load the value at the current address into r8
         sub  r5, r8, r4  ; Subtract the largest number from the current number
                          ; and let r5 hold the result.
