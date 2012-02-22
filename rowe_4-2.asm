@@ -1,4 +1,4 @@
-; rowe_4-1.asm
+; rowe_4-2.asm
 ; Finds the largest number in a sequential list of N 32-bit
 ; signed numbers and stores it after the list
 count1: .equ 5           ; Initialize constants
