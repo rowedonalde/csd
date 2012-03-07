@@ -1,0 +1,56 @@
+Don Rowe
+Homework #6
+Due 3/7/12
+
+1.a. While the la instruction loads a constant into a register, the addi
+     instruction first adds a constant to the contents of one register and then
+     loads the sum into a second register (which may be the same as the first.
+     The la instruction, then, is essentially equivalent to the addi
+     instruction when the first register holds 0. The key difference, though,
+     is that the la instruction only requires one register whereas the addi
+     instruction requires two registers; additionally, the constant referenced
+     by the addi instruction is 16 bits rather than the full 32.
+     
+  b. While it is at first tempting to eliminate the la instruction in favor 
+     of just using the addi instruction with a register assigned to 0, quick
+     reflection reveals that such a reduction would not work: to know for sure
+     that a register is set to 0, the register needs to be assigned to 0
+     through the la instruction. A simplification to the instruction set that
+     is possible, though, is eliminating the addi instruction in favor of first
+     loading the constant into another register first. However, this is less
+     than ideal for two reasons: first, it requires the programmer to write an
+     extra instruction, and, second, it requires an extra register that might
+     not be available in extreme circumstances.
+
+2. Machine code for swap:
+    31  27 26  22 21  17 16             0
+   |  Op  |  ra  |  rb  |     unused     |
+   
+   Abstract RTN addition:
+   R[ra], R[rb] <- R[rb], R[ra]
+   An identical number of comma-delimited objects on either side of an
+   assignment operator shall indicate parallel assignment in abstract RTN.
+   Thus, to swap two values, list the same two values on each side in opposite
+   order.
+   
+   Concrete RTN for swap:
+   T0      MA <- PC: C <- PC + 4;
+   T1      MD <- M[MA]; PC <- C;
+   T2      IR <- MD;
+   ------------------------------
+   T3      A <- R[ra];
+   T4      C <- A; A <- R[rb];
+   T5      R[rb] <- C; C <- A;
+   T6      R[ra] <- C;
+   
+   From steps T0 to T2, the instruction is getting read in to the Instruction
+   Register. The instruction is then read, and the actual swapping process
+   begins at T3, where the contents of the first register to be swapped are
+   loaded into the A holding register in front of the ALU. Next, in T4, the
+   contents of A are sent through the ALU (with no modification) to C;
+   simultaneously, the contents of the second register to be swapped are sent
+   to the holding register A. In T5, the contents of C (originally the contents
+   of the first register) are sent to the second register; simultaneously, the
+   contents of A are sent to C. Finally, in T6, the contents of C (originally
+   the contents of the second register) are sent to the first register involved
+   in the swap.
