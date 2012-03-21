@@ -1,0 +1,11 @@
+Don Rowe
+ELEC 385 Homework #8
+Due 3/21/2012
+
+1. or (:= op=22) -> R[ra] <- R[rb] ∨ R[rc]:
+   
+   Step |      Concrete RTN        |       Control Sequence
+   -----|--------------------------|-----------------------------
+   T0-T2| Instruction fetch        | Instruction Fetch
+   -----|--------------------------|-----------------------------
+   
