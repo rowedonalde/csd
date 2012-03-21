@@ -65,4 +65,28 @@ Due 3/21/2012
       T7   | R[ra] <- C;                      | Cout, Gra, Rin, End
       
       
+2. tmin = tR2valid + tw + th
+   tmin = tR2valid + tw + 3ns
 
+   tw = tl - tsu - th
+   tw = (6 - 2 - 3)ns
+   tw = 1ns
+   
+   tmin = tR2valid + 1ns + 3ns
+   
+   tR2valid = tg + tbp + tcomb + tsu
+   tR2valid = 5ns + 5ns + tcomb + 2ns
+   
+   comb Path:
+   nor/and + 32*adder + and + or = (1 + 32*adder + 1 + 1) gates
+   adder = and + or + or = 3 gates
+   comb Path = (3 + 32 * 3) gates = 99 gates
+   (Adder is 32 times, since carries propagate in series.)
+   
+   tcomb = 99 * 5ns
+   tcomb = 495ns
+   
+   tR2valid = 12ns + 495ns = 507ns
+   
+   tmin = 507ns + 4ns
+   tmin = 511ns
