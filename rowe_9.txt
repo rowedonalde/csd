@@ -1,0 +1,89 @@
+Don Rowe
+ELEC 385 Homework #8
+Due 3/21/2012
+
+1. a. la (:= op= 5) -> R[ra] <- disp:
+
+      Step | Concrete RTN                  | Control Sequence
+      -----|-------------------------------|--------------------------------
+      T0-T2| Instruction fetch             | Instruction Fetch
+      -----|-------------------------------|--------------------------------
+      T3   | R[ra] <- IR<21..0>;           | IRout, C=B, Gra, Sra, Rin, End
+      
+   
+   b. br (:= op= 8) -> (cond -> PC <- R[rb]):
+   
+      Step | Concrete RTN                     | Control Sequence
+      -----|----------------------------------|-----------------------------
+      T0-T2| Instruction fetch                | Instruction Fetch
+      -----|----------------------------------|-----------------------------
+      T3   | CON <- cond(R[rc]);              | CONin, Grc, Rout
+      -----|----------------------------------|-----------------------------
+      T4   | CON -> PC <- R[rb];              | Grb, Rout, CON -> PCin, End
+      
+      
+   c. st (:= op= 3) -> M[disp] <- R[ra]:
+   
+      Step | Concrete RTN                     | Control Sequence
+      -----|----------------------------------|-----------------------------
+      T0-T2| Instruction fetch                | Instruction Fetch
+      -----|----------------------------------|-----------------------------
+      T3   | MA <- IR<21..0>;                 | MAin, IRout, C=B
+      -----|----------------------------------|-----------------------------
+      T4   | MD <- R[ra];                     | Rout, Gra, MDin, C=B
+      -----|----------------------------------|-----------------------------
+      T5   | M[MA] <- MD;                     | Wait, End
+      
+      
+2. a. la (:= op= 5) -> R[ra] <- disp:
+
+      Step | Concrete RTN                     | Control Sequence
+      -----|----------------------------------|-----------------------------
+      T0-T1| Instruction fetch                | Instruction Fetch
+      -----|----------------------------------|-----------------------------
+      T2   | R[ra] <- IR<21..0>;              | IRout, C=B, Gra, Rin, End, Sra
+      
+      
+   b. br (:= op= 8) -> (cond -> PC <- R[rb]):
+   
+      Step | Concrete RTN                     | Control Sequence
+      -----|----------------------------------|-----------------------------
+      T0-T1| Instruction fetch                | Instruction Fetch
+      -----|----------------------------------|-----------------------------
+      T2   | CON <- cond(R[rc]);              | CONin, GArc, Rout
+      -----|----------------------------------|-----------------------------
+      T3   | CON -> PC <- R[rb];              | GBrb, Rout, CON -> PCin, End
+      
+   c. st (:= op= 3) -> M[disp] <- R[ra]:
+   
+      Step | Concrete RTN                     | Control Sequence
+      -----|----------------------------------|-----------------------------
+      T0-T1| Instruction fetch                | Instruction Fetch
+      -----|----------------------------------|-----------------------------
+      T2   | MA <- IR<21..0>;                 | MAin, IRout
+      -----|----------------------------------|-----------------------------
+      T3   | MD <- R[ra]                      | Rout, GBra, MDin, C=B
+      -----|----------------------------------|-----------------------------
+      T4   | M[MA] <- MD                      | Wait, End
+      
+3. a. Instruction | 1 bus | 2 bus | 3 bus
+      ------------|-------|-------|--------
+      la          | 5     | 4     | 3
+      ld          | 7     | 6     | 5
+      brmi        | 6     | 5     | 4
+      addi        | 6     | 5     | 4
+      brnz        | 6     | 5     | 4
+      st          | 6     | 5     | 4
+      
+   b. 1-bus arch: 5*5 + 7 + 6 + 3*6 + 6 + 6 = 68 cycles
+      2-bus arch: 5*4 + 6 + 5 + 3*5 + 5 + 5 = 56 cycles
+      3-bus arch: 5*3 + 5 + 4 + 3*4 + 4 + 4 = 44 cycles
+      
+   c. Speedup from 1-bus arch to 2-bus:
+      (68 - 56) / 56 = 21.4%
+   
+   d. Speedup from 1-bus arch to 3-bus:
+      (68 - 44 * 1.12) / 44 * 1.12 = 47.7%
+      
+
+      
